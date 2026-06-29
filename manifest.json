@@ -1,0 +1,18 @@
+{
+  "name": "BP Messages Admin",
+  "short_name": "BP Messages",
+  "description": "Painel web para visualizar conversas e mídias do nó messages.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#edf4ff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

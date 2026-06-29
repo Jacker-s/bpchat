@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0ea5a4"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="140" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="160" fill="rgba(255,255,255,0.12)"/>
+  <path d="M154 177h204c24 0 44 20 44 44v84c0 24-20 44-44 44H252l-68 56c-8 7-20 1-20-10v-46h-10c-24 0-44-20-44-44v-84c0-24 20-44 44-44Z" fill="#ffffff"/>
+  <text x="256" y="279" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="96" font-weight="800" fill="#2563eb">BP</text>
+</svg>

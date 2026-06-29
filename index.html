@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BP Messages Admin</title>
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="BP Messages" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <section id="loginScreen" class="screen screen-login">
+      <div class="login-card">
+        <div class="brand">
+          <div class="brand-mark">BP</div>
+          <div>
+            <h1>BP Messages Admin</h1>
+            <p>Entrar para visualizar conversas reais do nó <code>messages</code>.</p>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="usernameInput">Usuário</label>
+          <input id="usernameInput" type="text" placeholder="Jack" value="Jack" />
+        </div>
+
+        <div class="field-group">
+          <label for="passwordInput">Senha</label>
+          <input id="passwordInput" type="password" placeholder="Sua senha" />
+        </div>
+
+        <div class="actions">
+          <button id="loginBtn" type="button" class="btn btn-primary">Entrar</button>
+        </div>
+
+        <div id="loginStatus" class="status-box">Aguardando login.</div>
+        <div class="hint-box">Para instalar no celular, publique esta pasta em um host com <code>https</code>.</div>
+        <div id="loginError" class="error-box hidden"></div>
+      </div>
+    </section>
+
+    <section id="appScreen" class="screen screen-app hidden">
+      <aside class="sidebar">
+        <div class="top-card">
+          <div class="brand brand-compact">
+            <div class="brand-mark">BP</div>
+            <div>
+              <h2>Messages</h2>
+              <p>Painel de leitura</p>
+            </div>
+          </div>
+
+          <div id="sessionMeta" class="session-meta"></div>
+
+          <div class="toolbar">
+            <button id="refreshBtn" type="button" class="btn btn-primary">Atualizar</button>
+            <button id="logoutBtn" type="button" class="btn btn-secondary">Sair</button>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <label for="searchInput">Buscar conversa</label>
+          <input id="searchInput" type="text" placeholder="Ex.: JACK ou ALICE" />
+        </div>
+
+        <div id="conversationList" class="conversation-list"></div>
+      </aside>
+
+      <main class="content">
+        <header class="content-header">
+          <div>
+            <h2 id="conversationTitle">Selecione uma conversa</h2>
+            <p id="conversationSubtitle">Entre com sua conta e abra uma conversa na lateral.</p>
+          </div>
+          <div id="conversationMeta" class="meta-chips"></div>
+        </header>
+
+        <section id="messagesPanel" class="messages-panel">
+          <div class="empty-state">
+            <h3>Nenhuma conversa aberta</h3>
+            <p>Quando você selecionar uma conversa, as mensagens e mídias aparecem aqui.</p>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
