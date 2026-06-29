@@ -21,6 +21,7 @@
 html,
 body {
   margin: 0;
+  height: 100%;
   min-height: 100%;
   font-family: "Segoe UI", system-ui, sans-serif;
   color: var(--text);
@@ -42,6 +43,7 @@ select {
 
 .page-shell {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 20px;
 }
 
@@ -181,10 +183,13 @@ select {
 }
 
 .screen-app {
+  height: calc(100vh - 40px);
+  height: calc(100dvh - 40px);
   min-height: calc(100vh - 40px);
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 18px;
+  overflow: hidden;
 }
 
 .sidebar,
@@ -250,7 +255,9 @@ select {
 
 .messages-panel {
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   padding: 22px;
   display: grid;
   align-content: start;
@@ -372,7 +379,22 @@ select {
   }
 
   .screen-app {
+    height: calc(100vh - 24px);
+    height: calc(100dvh - 24px);
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    align-self: start;
+  }
+
+  .content {
+    min-height: 0;
+  }
+
+  .messages-panel {
+    min-height: 0;
   }
 
   .message {
