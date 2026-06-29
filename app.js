@@ -31,7 +31,7 @@ const sessionMeta = document.getElementById("sessionMeta");
 const refreshBtn = document.getElementById("refreshBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const searchInput = document.getElementById("searchInput");
-const conversationList = document.getElementById("conversationList");
+const conversationSelect = document.getElementById("conversationSelect");
 const conversationTitle = document.getElementById("conversationTitle");
 const conversationSubtitle = document.getElementById("conversationSubtitle");
 const conversationMeta = document.getElementById("conversationMeta");
@@ -348,27 +348,22 @@ async function loginWithCredentials() {
   }
 }
 
-function renderConversationList() {
+function renderConversationSelect() {
   if (!state.filtered.length) {
-    conversationList.innerHTML = `
-      <div class="conversation-item">
-        <h3>Nenhuma conversa</h3>
-        <p>Nada encontrado com esse filtro.</p>
-      </div>
-    `;
+    conversationSelect.innerHTML = `<option value="">Nenhuma conversa encontrada</option>`;
+    conversationSelect.value = "";
     return;
   }
 
-  conversationList.innerHTML = state.filtered.map((item) => `
-    <article class="conversation-item ${item.key === state.selectedKey ? "active" : ""}" data-key="${escapeHtml(item.key)}">
-      <h3>${escapeHtml(item.label)}</h3>
-      <p>${escapeHtml(item.key)}</p>
-    </article>
-  `).join("");
-
-  conversationList.querySelectorAll(".conversation-item[data-key]").forEach((node) => {
-    node.addEventListener("click", () => selectConversation(node.dataset.key));
+  const options = [`<option value="">Selecione uma conversa</option>`];
+  state.filtered.forEach((item) => {
+    const selected = item.key === state.selectedKey ? " selected" : "";
+    options.push(`<option value="${escapeHtml(item.key)}"${selected}>${escapeHtml(item.label)}</option>`);
   });
+  conversationSelect.innerHTML = options.join("");
+  conversationSelect.value = state.selectedKey && state.filtered.some((item) => item.key === state.selectedKey)
+    ? state.selectedKey
+    : "";
 }
 
 function applyFilter() {
@@ -377,7 +372,7 @@ function applyFilter() {
     if (!query) return true;
     return item.key.toLowerCase().includes(query) || item.label.toLowerCase().includes(query);
   });
-  renderConversationList();
+  renderConversationSelect();
 }
 
 async function loadConversationKeys() {
@@ -467,8 +462,23 @@ function renderMessages(key, messages) {
 }
 
 async function selectConversation(key) {
+  if (!key) {
+    state.selectedKey = null;
+    renderConversationSelect();
+    conversationTitle.textContent = "Selecione uma conversa";
+    conversationSubtitle.textContent = "Escolha uma conversa no menu para visualizar as mensagens.";
+    conversationMeta.innerHTML = "";
+    messagesPanel.innerHTML = `
+      <div class="empty-state">
+        <h3>Nenhuma conversa aberta</h3>
+        <p>Quando você selecionar uma conversa no dropdown, as mensagens e mídias aparecem aqui.</p>
+      </div>
+    `;
+    return;
+  }
+
   state.selectedKey = key;
-  renderConversationList();
+  renderConversationSelect();
   conversationTitle.textContent = decodeConversationLabel(key);
   conversationSubtitle.textContent = `Carregando mensagens de ${key}...`;
   conversationMeta.innerHTML = "";
@@ -497,7 +507,8 @@ function resetAppState() {
   state.filtered = [];
   state.selectedKey = null;
   state.cache.clear();
-  conversationList.innerHTML = "";
+  conversationSelect.innerHTML = `<option value="">Nenhuma conversa carregada</option>`;
+  conversationSelect.value = "";
   conversationTitle.textContent = "Selecione uma conversa";
   conversationSubtitle.textContent = "Entre com sua conta e abra uma conversa na lateral.";
   conversationMeta.innerHTML = "";
@@ -523,6 +534,9 @@ logoutBtn.addEventListener("click", async () => {
   await auth.signOut();
 });
 searchInput.addEventListener("input", applyFilter);
+conversationSelect.addEventListener("change", () => {
+  selectConversation(conversationSelect.value);
+});
 
 auth.onAuthStateChanged(async (user) => {
   await updateSessionMeta(user);

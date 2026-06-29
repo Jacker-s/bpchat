@@ -31,7 +31,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -107,7 +108,8 @@ input {
 }
 
 .field-group input,
-.search-card input {
+.search-card input,
+.conversation-select {
   width: 100%;
   border: 0;
   outline: none;
@@ -115,6 +117,21 @@ input {
   border-radius: 18px;
   background: var(--panel-strong);
   box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+
+.conversation-select {
+  cursor: pointer;
+  color: var(--text);
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--primary) 50%),
+    linear-gradient(135deg, var(--primary) 50%, transparent 50%);
+  background-position:
+    calc(100% - 24px) calc(50% - 3px),
+    calc(100% - 18px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 42px;
 }
 
 .actions,
@@ -182,7 +199,7 @@ input {
 
 .sidebar {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto;
   gap: 14px;
   padding: 18px;
 }
@@ -191,50 +208,6 @@ input {
 .search-card {
   display: grid;
   gap: 12px;
-}
-
-.conversation-list {
-  min-height: 0;
-  overflow: auto;
-  display: grid;
-  gap: 10px;
-  padding-right: 4px;
-}
-
-.conversation-item {
-  display: grid;
-  gap: 6px;
-  padding: 14px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(37, 99, 235, 0.08);
-  cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-}
-
-.conversation-item:hover {
-  transform: translateY(-1px);
-  border-color: rgba(37, 99, 235, 0.18);
-}
-
-.conversation-item.active {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(14, 165, 164, 0.08));
-  border-color: rgba(37, 99, 235, 0.22);
-}
-
-.conversation-item h3,
-.conversation-item p {
-  margin: 0;
-}
-
-.conversation-item h3 {
-  font-size: 14px;
-}
-
-.conversation-item p {
-  color: var(--muted);
-  font-size: 12px;
-  word-break: break-word;
 }
 
 .content {
